@@ -64,16 +64,25 @@ def draw_box_plot():
     df_box = df_box.sort_values(by='month_index')
 
     # Draw box plots
-    fig, ax = plt.subplots(figsize=(12,12))
-    sns.barplot(
-      data=df_box, 
-      y='Views', 
-      x='Year', 
-      hue='Month',
-      ci=None,
-      ax=ax
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11, 16), tight_layout=True)
+
+    sns.boxplot(
+    data = df_box,
+    x = 'Year', 
+    y = 'Views',
+    ax=ax1
     )
-    plt.legend(loc='upper left')
+    sns.boxplot(
+    data = df_box,
+    x = 'Month', 
+    y = 'Views', 
+    ax=ax2
+    )
+
+    ax1.set_ylabel('Page views')
+    ax1.set_title('Month-wise Box Plot (Seasonality)')
+    ax2.set_ylabel('Page views')
+    ax2.set_title('Year-wise Box Plot (Trend)')
 
     # Save image and return fig
     fig.savefig('box_plot.png')
